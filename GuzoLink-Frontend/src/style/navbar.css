@@ -1,0 +1,39 @@
+*{
+    padding:0;
+    margin:0;
+    background-color: white;
+}
+.nav{
+  background-color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding:1rem;
+  align-items:center;
+  position: fixed;
+  width: 100%;
+}
+#logo{
+    display: inline;
+    padding:1rem;
+    color: #0066cc ;
+}
+ul{
+  list-style: none;
+  display: inline;
+  justify-content: space-evenly;
+  padding-left:22rem;
+}
+li{
+  display: inline;
+  margin-right: 15px;
+  padding:0.5rem;
+}
+a{
+    color:black;
+    text-decoration: none;
+    &:hover{
+        color: #0066cc ;
+        transition: ease;
+    }
+}
