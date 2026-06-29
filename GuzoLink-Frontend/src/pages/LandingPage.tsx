@@ -3,7 +3,7 @@ import "../style/landing.css";
 import lalibela from "../assets/lalibela.webp";
 import wenchi from "../assets/Wenchi.jpg";
 import doho from "../assets/doholodge.jpg";
-import backImage from "../assets/backgroundeimage.jpg";
+// import backImage from "../assets/backgroundeimage.jpg";
 import Footer from "../components/Footer";
 
 
