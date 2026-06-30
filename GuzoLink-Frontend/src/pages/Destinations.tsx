@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import Navbar from "../components/Navbar";
 import "../style/destinations.css";
-import lalibela from "../assets/lalibela.webp"
-import Wenchi from "../assets/Wenchi.jpg" 
-import Danakil from  "../assets/Danakil.jpeg" 
+
+import lalibela from "../assets/lalibela.webp";
+import Wenchi from "../assets/Wenchi.jpg";
+import Danakil from "../assets/Danakil.jpeg";
 
 export interface Destination {
   id: number;
@@ -22,7 +24,7 @@ const mockDestinations: Destination[] = [
   },
   {
     id: 2,
-    title: "Wenchi",
+    title: "Wenchi Crater Lake",
     location: "Amhara, Ethiopia",
     price: 200,
     image: Wenchi,
@@ -32,45 +34,48 @@ const mockDestinations: Destination[] = [
     title: "Danakil Depression",
     location: "Afar, Ethiopia",
     price: 180,
-    image:  Danakil,
+    image: Danakil,
   },
 ];
 
 const Destinations = () => {
   const [search, setSearch] = useState("");
 
-  const filtered = mockDestinations.filter((d) =>
-    d.title.toLowerCase().includes(search.toLowerCase())
+  const filtered = mockDestinations.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="destinations-container">
-      <div className="hero">
-        <h1>Explore Destinations</h1>
+    <div>
+      <Navbar />
 
-        <input
-          placeholder="Search trips..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </div>
+      <div className="destinations-container">
+        <div className="hero">
+          <h1>Explore Destinations</h1>
 
-      <div className="grid">
-        {filtered.map((item) => (
-          <div key={item.id} className="card">
-            <img src={item.image} />
+          <input
+            type="text"
+            placeholder="Search trips..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
 
-            <div className="card-body">
+        <div className="cards">
+          {filtered.map((item) => (
+            <div key={item.id} className="card">
+              <img src={item.image} alt={item.title} />
+
               <h3>{item.title}</h3>
               <p>{item.location}</p>
 
-              <div className="footer">
-                <span>{item.price}BIRR</span>
+              <div className="card-footer">
+                <span>{item.price} BIRR</span>
                 <button>Book Now</button>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
