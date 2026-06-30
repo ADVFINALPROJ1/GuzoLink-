@@ -20,7 +20,7 @@ app.route("/trips", tripRouter);
 
 
 app.get("/", (c) => {
-  return c.json({ message: "GuzoLink API is running! 🌍" });
+  return c.json({ message: "GuzoLink API is running" });
 });
 
 const PORT = Number(process.env.PORT) || 3000;
