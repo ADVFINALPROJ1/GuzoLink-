@@ -17,16 +17,26 @@ booking.post("/book", async (c) => {
   return c.json({ message: "Booking created" });
 });
 
-// GET USER BOOKINGS
+// GET USER
 booking.get("/user/:id", async (c) => {
   const userId = c.req.param("id");
 
   const [rows] = await db.query(
-    "SELECT * FROM bookings WHERE user_id = ?",
+    `
+    SELECT 
+      bookings.id as booking_id,
+      trips.id as trip_id,
+      trips.title,
+      trips.location,
+      trips.price,
+      trips.days
+    FROM bookings
+    JOIN trips ON bookings.trip_id = trips.id
+    WHERE bookings.user_id = ?
+    `,
     [userId]
   );
 
   return c.json(rows);
 });
-
 export default booking;

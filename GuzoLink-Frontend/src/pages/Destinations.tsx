@@ -10,6 +10,7 @@ export interface Destination {
   id: number;
   title: string;
   location: string;
+  days: number;
   price: number;
   image: string;
 }
@@ -19,6 +20,7 @@ const mockDestinations: Destination[] = [
     id: 1,
     title: "Lalibela Churches",
     location: "Lalibela, Ethiopia",
+    days: 4,
     price: 120,
     image: lalibela,
   },
@@ -26,6 +28,7 @@ const mockDestinations: Destination[] = [
     id: 2,
     title: "Wenchi Crater Lake",
     location: "Amhara, Ethiopia",
+    days: 2,
     price: 200,
     image: Wenchi,
   },
@@ -33,6 +36,7 @@ const mockDestinations: Destination[] = [
     id: 3,
     title: "Danakil Depression",
     location: "Afar, Ethiopia",
+    days: 3,
     price: 180,
     image: Danakil,
   },
@@ -40,10 +44,34 @@ const mockDestinations: Destination[] = [
 
 const Destinations = () => {
   const [search, setSearch] = useState("");
+  const [selectedTrip, setSelectedTrip] = useState<Destination | null>(null);
+  const [bookedTrips, setBookedTrips] = useState<Destination[]>([]);
 
   const filtered = mockDestinations.filter((item) =>
     item.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  const openBooking = (trip: Destination) => {
+    setSelectedTrip(trip);
+  };
+
+const confirmBooking = async () => {
+  if (!selectedTrip) return;
+
+  await fetch("http://localhost:5000/book/book", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user_id: 1, // temporary static user
+      trip_id: selectedTrip.id,
+    }),
+  });
+
+  setSelectedTrip(null);
+  alert("Trip booked successfully!");
+};
 
   return (
     <div>
@@ -54,7 +82,6 @@ const Destinations = () => {
           <h1>Explore Destinations</h1>
 
           <input
-            type="text"
             placeholder="Search trips..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -63,20 +90,45 @@ const Destinations = () => {
 
         <div className="cards">
           {filtered.map((item) => (
-            <div key={item.id} className="card">
-              <img src={item.image} alt={item.title} />
+            <div className="card" key={item.id}>
+              <img src={item.image} />
 
               <h3>{item.title}</h3>
               <p>{item.location}</p>
 
               <div className="card-footer">
                 <span>{item.price} BIRR</span>
-                <button>Book Now</button>
+
+                <button onClick={() => openBooking(item)}>
+                  Book Now
+                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* POPUP / MODAL */}
+      {selectedTrip && (
+        <div className="modal">
+          <div className="modal-box">
+            <h2>{selectedTrip.title}</h2>
+            <p>{selectedTrip.location}</p>
+            <p>{selectedTrip.days} Days</p>
+            <p>{selectedTrip.price} BIRR</p>
+
+            <div className="modal-actions">
+              <button onClick={() => setSelectedTrip(null)}>
+                Cancel
+              </button>
+
+              <button onClick={confirmBooking}>
+                Confirm Booking
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
