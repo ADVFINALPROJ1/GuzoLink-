@@ -1,0 +1,103 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: Arial, sans-serif;
+}
+
+
+.destinations-container {
+  width: 100%;
+  padding: 3rem 2rem;
+  box-sizing: border-box;
+}
+
+
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.hero input {
+  padding: 1rem;
+  width: 300px;
+  max-width: 90%;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+
+.card {
+  width: 250px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  transition: 0.4s;
+}
+.card:hover {
+  transform: translateY(-8px);
+  cursor: pointer;
+}
+
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+
+.card h3 {
+  padding: 10px;
+  font-size: 18px;
+}
+
+.card p {
+  padding: 0 10px;
+  color: #555;
+}
+
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+
+.card-footer span {
+  font-weight: bold;
+  color: #111;
+}
+.card button {
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  border: none;
+  background-color: #0066cc;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card button:hover {
+  background-color: skyblue;
+  color: black;
+}

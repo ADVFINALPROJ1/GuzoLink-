@@ -1,51 +1,43 @@
-// src/pages/Trips.tsx
-import { useState, useEffect } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
-import { fetchTrips } from "../api/api";
-import type { Trip } from "../api/api";
+import "../style/trips.css";
 
-function Trips() {
-  const [trips, setTrips] = useState<Trip[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+const bookedTrips = [
+  // empty for now
+];
 
-  useEffect(() => {
-    const loadTrips = async () => {
-      try {
-        const data = await fetchTrips();
-        setTrips(data);
-      } catch (err: any) {
-        setError(err.message || "Failed to load trips.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadTrips();
-  }, []);
-
+const Trips = () => {
   return (
     <div>
       <Navbar />
 
-      <h1>Trips Page</h1>
+      <div className="trips-container">
+        <h1 className="title">My Trips</h1>
 
-      {loading && <p>Loading trips...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-
-      <div className="cards">
-        {trips.map((trip) => (
-          <div className="card" key={trip.id}>
-            {trip.image && <img src={trip.image} alt={trip.title} />}
-            <h3>{trip.title}</h3>
-            <p>{trip.days} Days</p>
-            <p>${Number(trip.price).toFixed(2)}</p>
-            <button>View Trip</button>
+        {bookedTrips.length === 0 ? (
+          <div className="empty-card">
+            <h2>You haven’t booked any trips yet</h2>
+            <p>Go to destinations and book your first trip.</p>
           </div>
-        ))}
+        ) : (
+          <div className="trips-grid">
+            {bookedTrips.map((trip) => (
+              <div className="trip-card" key={trip.id}>
+                <h3>{trip.title}</h3>
+                <p>{trip.location}</p>
+                <p>{trip.days} days</p>
+
+                <div className="trip-footer">
+                  <span>{trip.price} birr</span>
+                  <button>View</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default Trips;
