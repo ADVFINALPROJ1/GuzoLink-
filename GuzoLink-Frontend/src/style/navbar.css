@@ -37,3 +37,20 @@ a{
         transition: ease;
     }
 }
+
+.logoutBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  font-family: inherit;
+  border: none;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.logoutBtn:hover {
+  text-decoration: underline;
+}
